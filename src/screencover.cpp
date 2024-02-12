@@ -36,6 +36,13 @@ QColor ScreenCover::color()
     return QColor(m_pix.toImage().pixel(m_pix.width() / 2, m_pix.height() / 2));
 }
 
+void ScreenCover::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        MANAGER->clean();
+    }
+}
+
 void ScreenCover::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::MouseButton::LeftButton) {
