@@ -48,8 +48,10 @@ protected:
 
 private:
     explicit PickerManager(QObject *parent = nullptr);
-
-    void clean();
+    /**
+     * @brief close 关闭拾取
+     */
+    void close();
 private slots:
     void slotFormatClicked();
 signals:

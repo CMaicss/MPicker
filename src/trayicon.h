@@ -9,10 +9,25 @@ class TrayIcon : public QObject
     Q_OBJECT
 public:
     TrayIcon();
+    /**
+     * @brief showMessage 弹出系统通知
+     * @param title 通知标题
+     * @param text 通知内容文本
+     */
     void showMessage(const QString& title, const QString& text);
 private slots:
+    /**
+     * @brief slotTrayIconActivated 点击托盘图标响应
+     * @param reason 托盘图标点击方式
+     */
     void slotTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
+    /**
+     * @brief slotActionStart 点击托盘菜单中的拾色按钮
+     */
     void slotActionStart();
+    /**
+     * @brief slotActionExit 点击托盘菜单中的退出按钮
+     */
     void slotActionExit();
 private:
     QSystemTrayIcon* m_tray;

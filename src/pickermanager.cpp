@@ -71,7 +71,7 @@ void PickerManager::pickerFinished(const QColor &color)
     qDebug()<<"Picker:"<<color_name;
     clipboard->setText(color_name);//设置剪贴板内容
     m_tray->showMessage("取色器", QString("颜色值 %1 已经复制到您的剪贴板。").arg(color_name));
-    clean();
+    close();
 }
 
 void PickerManager::popMenu(const QColor &color)
@@ -122,12 +122,12 @@ PickerManager::PickerManager(QObject *parent)
     m_format = ColorFormat::Hex;
 }
 
-void PickerManager::clean()
+void PickerManager::close()
 {
     QApplication::setOverrideCursor(Qt::ArrowCursor);
     for(auto cover : m_covers) {
         cover->hide();
-        cover->deleteLater();
+        delete cover;
     }
     m_covers.clear();
 
