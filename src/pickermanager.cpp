@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QClipboard>
 #include "utils.h"
+#include "trayicon.h"
 PickerManager* PickerManager::_ins = nullptr;
 PickerManager *PickerManager::instance()
 {
@@ -70,7 +71,7 @@ void PickerManager::pickerFinished(const QColor &color)
     qDebug()<<"Picker:"<<color_name;
     clipboard->setText(color_name);//设置剪贴板内容
     m_tray->showMessage("取色器", QString("颜色值 %1 已经复制到您的剪贴板。").arg(color_name));
-    QApplication::exit();
+    clean();
 }
 
 void PickerManager::popMenu(const QColor &color)
@@ -91,10 +92,7 @@ void PickerManager::popMenu(const QColor &color)
 PickerManager::PickerManager(QObject *parent)
     : QObject{parent}
 {
-    m_tray = new QSystemTrayIcon(this);
-    QIcon icon1 = QApplication::style()->standardIcon((QStyle::StandardPixmap)9);
-    m_tray->setIcon(icon1);
-    m_tray->show();
+    m_tray = new TrayIcon;
 
     m_action_Hex = new QAction;
     m_action_CMYK = new QAction;
@@ -124,6 +122,17 @@ PickerManager::PickerManager(QObject *parent)
     m_format = ColorFormat::Hex;
 }
 
+void PickerManager::clean()
+{
+    QApplication::setOverrideCursor(Qt::ArrowCursor);
+    for(auto cover : m_covers) {
+        cover->hide();
+        cover->deleteLater();
+    }
+    m_covers.clear();
+
+}
+
 void PickerManager::slotFormatClicked()
 {
     if (sender() == m_action_Hex) {
@@ -142,3 +151,5 @@ void PickerManager::slotFormatClicked()
         m_format = ColorFormat::FloatRGBA;
     }
 }
+
+

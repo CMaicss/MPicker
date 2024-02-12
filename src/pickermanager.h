@@ -4,11 +4,11 @@
 #include <QAction>
 #include <QObject>
 #include <QScreen>
-#include <QSystemTrayIcon>
 #define MANAGER PickerManager::instance()
 
 
 class ScreenCover;
+class TrayIcon;
 class PickerManager : public QObject
 {
     Q_OBJECT
@@ -45,9 +45,11 @@ protected:
      * @param color 选中的颜色
      */
     void popMenu(const QColor &color);
+
 private:
     explicit PickerManager(QObject *parent = nullptr);
 
+    void clean();
 private slots:
     void slotFormatClicked();
 signals:
@@ -55,7 +57,6 @@ signals:
 private:
     static PickerManager* _ins;
     QVector<ScreenCover*> m_covers;
-    QSystemTrayIcon* m_tray;
     ColorFormat m_format;
     QAction* m_action_Hex;
     QAction* m_action_CMYK;
@@ -64,7 +65,9 @@ private:
     QAction* m_action_RGBA;
     QAction* m_action_FloatRGB;
     QAction* m_action_FloatRGBA;
-    QMenu* m_menu;
+    QMenu *m_menu;
+
+    TrayIcon *m_tray;
 };
 
 #endif // PICKERMANAGER_H
