@@ -6,5 +6,10 @@ set(SOURCES
         trayicon.h trayicon.cpp
         ../images/images.qrc
 )
-add_executable(MPicker ${SOURCES})
+if (WIN32)
+    set(CMAKE_CXX_FLAGS "-mwindows")
+    add_executable(MPicker ${SOURCES} ../icon.rc)
+else()
+    add_executable(MPicker ${SOURCES})
+endif()
 target_link_libraries(MPicker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

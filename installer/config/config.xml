@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>MPicker</Name>
+    <Version>1.0.0</Version>
+    <Title>MPicker</Title>
+    <Publisher>https://github.com/CMaicss/MPicker</Publisher>
+    <StartMenuDir>MPicker</StartMenuDir>
+    <TargetDir>@HomeDir@/MPicker</TargetDir>
+</Installer>

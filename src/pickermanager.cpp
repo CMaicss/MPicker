@@ -70,7 +70,7 @@ void PickerManager::pickerFinished(const QColor &color)
     }
     qDebug()<<"Picker:"<<color_name;
     clipboard->setText(color_name);//设置剪贴板内容
-    m_tray->showMessage("取色器", QString("颜色值 %1 已经复制到您的剪贴板。").arg(color_name));
+    m_tray->showMessage(tr("MPicker"), QString(tr("Copy color %1 to clipboard.")).arg(color_name));
     close();
 }
 
