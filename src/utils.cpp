@@ -44,6 +44,11 @@ QString Utils::colorToFloatRGBA(QColor color)
     return QString("(%1, %2, %3, 1.0)").arg(color.red() / 255.0).arg(color.green() / 255.0).arg(color.blue() / 255.0);
 }
 
+QString Utils::colorToTColor(QColor color)
+{
+    return QString::number(color.red() + color.green() * 256 + color.blue() * 256 * 256);
+}
+
 #define AUTO_RUN "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
 void Utils::setProcessAutoRunSelf(bool isstart)
 {

@@ -67,6 +67,8 @@ void PickerManager::pickerFinished(const QColor &color)
         color_name = Utils::colorToFloatRGB(color);
     } else if (m_format == ColorFormat::FloatRGBA) {
         color_name = Utils::colorToFloatRGBA(color);
+    } else if (m_format == ColorFormat::TColor) {
+        color_name = Utils::colorToTColor(color);
     }
     qDebug()<<"Picker:"<<color_name;
     clipboard->setText(color_name);//设置剪贴板内容
@@ -77,13 +79,14 @@ void PickerManager::pickerFinished(const QColor &color)
 void PickerManager::popMenu(const QColor &color)
 {
     QApplication::setOverrideCursor(Qt::ArrowCursor);
-    m_action_Hex->setText(Utils::colorToHex(color));
-    m_action_CMYK->setText(Utils::colorToCMYK(color));
-    m_action_HSV->setText(Utils::colorToHSV(color));
-    m_action_RGB->setText(Utils::colorToRGB(color));
-    m_action_RGBA->setText(Utils::colorToRGBA(color));
-    m_action_FloatRGB->setText(Utils::colorToFloatRGB(color));
-    m_action_FloatRGBA->setText(Utils::colorToFloatRGBA(color));
+    m_action_Hex->setText("Hex: " + Utils::colorToHex(color));
+    m_action_CMYK->setText("CMYK: " + Utils::colorToCMYK(color));
+    m_action_HSV->setText("HSV: " + Utils::colorToHSV(color));
+    m_action_RGB->setText("RGB: " + Utils::colorToRGB(color));
+    m_action_RGBA->setText("RGBA: " + Utils::colorToRGBA(color));
+    m_action_FloatRGB->setText("FloatRGB: " + Utils::colorToFloatRGB(color));
+    m_action_FloatRGBA->setText("FloatRGBA: " + Utils::colorToFloatRGBA(color));
+    m_action_TColor->setText("TColor: " + Utils::colorToTColor(color));
     m_menu->exec(QCursor::pos());
 
     pickerFinished(color);
@@ -101,6 +104,7 @@ PickerManager::PickerManager(QObject *parent)
     m_action_RGBA = new QAction;
     m_action_FloatRGB = new QAction;
     m_action_FloatRGBA = new QAction;
+    m_action_TColor = new QAction;
 
     m_menu = new QMenu();
     m_menu->addAction(m_action_Hex);
@@ -110,6 +114,7 @@ PickerManager::PickerManager(QObject *parent)
     m_menu->addAction(m_action_RGBA);
     m_menu->addAction(m_action_FloatRGB);
     m_menu->addAction(m_action_FloatRGBA);
+    m_menu->addAction(m_action_TColor);
 
     connect(m_action_Hex, &QAction::triggered, this, &PickerManager::slotFormatClicked);
     connect(m_action_CMYK, &QAction::triggered, this, &PickerManager::slotFormatClicked);
@@ -118,6 +123,7 @@ PickerManager::PickerManager(QObject *parent)
     connect(m_action_RGBA, &QAction::triggered, this, &PickerManager::slotFormatClicked);
     connect(m_action_FloatRGB, &QAction::triggered, this, &PickerManager::slotFormatClicked);
     connect(m_action_FloatRGBA, &QAction::triggered, this, &PickerManager::slotFormatClicked);
+    connect(m_action_TColor, &QAction::triggered, this, &PickerManager::slotFormatClicked);
 
     m_format = ColorFormat::Hex;
 }
@@ -149,6 +155,8 @@ void PickerManager::slotFormatClicked()
         m_format = ColorFormat::FloatRGB;
     } else if (sender() == m_action_FloatRGBA) {
         m_format = ColorFormat::FloatRGBA;
+    } else if (sender() == m_action_TColor) {
+        m_format = ColorFormat::TColor;
     }
 }
 

@@ -23,6 +23,7 @@ public:
         RGBA,
         FloatRGB,
         FloatRGBA,
+        TColor,
     };
 
     static PickerManager* instance();
@@ -67,6 +68,7 @@ private:
     QAction* m_action_RGBA;
     QAction* m_action_FloatRGB;
     QAction* m_action_FloatRGBA;
+    QAction* m_action_TColor;
     QMenu *m_menu;
 
     TrayIcon *m_tray;

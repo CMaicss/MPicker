@@ -18,6 +18,7 @@ public:
     static QString colorToRGBA(QColor color);
     static QString colorToFloatRGB(QColor color);
     static QString colorToFloatRGBA(QColor color);
+    static QString colorToTColor(QColor color);
     static void setProcessAutoRunSelf(bool isstart);
     static bool isAutoRunSelf();
 };
