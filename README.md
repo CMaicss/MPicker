@@ -6,6 +6,10 @@ MPicker是参考[deepin-picker](https://github.com/linuxdeepin/deepin-picker)的
 
 具体原理和设计理念请看原深度CTO王勇的文章：[Linux实时放大镜原理](https://www.jianshu.com/p/e0023be705f7)。
 
+## 效果图
+
+![效果图](doc/screenshot.png)
+
 ## 功能列表：
 
 > ✅代表已经实现，🔧代表正在开发。
