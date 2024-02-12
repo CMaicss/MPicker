@@ -15,6 +15,8 @@ public:
      * @param text 通知内容文本
      */
     void showMessage(const QString& title, const QString& text);
+
+    void loadConfig();
 private slots:
     /**
      * @brief slotTrayIconActivated 点击托盘图标响应
@@ -29,11 +31,17 @@ private slots:
      * @brief slotActionExit 点击托盘菜单中的退出按钮
      */
     void slotActionExit();
+    /**
+     * @brief slotActionAutoRun 设置是否随系统启动
+     * @param autoRun 是否自动启动
+     */
+    void slotActionAutoRun(bool autoRun);
 private:
     QSystemTrayIcon* m_tray;
     QMenu* m_menu;
     QAction* m_action_exit;
     QAction* m_action_start;
+    QAction* m_action_autoRun;
 };
 
 #endif // TRAYICON_H

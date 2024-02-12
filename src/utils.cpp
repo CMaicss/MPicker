@@ -7,6 +7,7 @@
 #include <QString>
 #include <QWidget>
 #include <QtMath>
+#include <QSettings>
 
 QString Utils::colorToHex(QColor color)
 {
@@ -43,3 +44,36 @@ QString Utils::colorToFloatRGBA(QColor color)
     return QString("(%1, %2, %3, 1.0)").arg(color.red() / 255.0).arg(color.green() / 255.0).arg(color.blue() / 255.0);
 }
 
+#define AUTO_RUN "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+void Utils::setProcessAutoRunSelf(bool isstart)
+{
+    QSettings *settings = new QSettings(AUTO_RUN, QSettings::NativeFormat);
+
+    QString application_name = QApplication::applicationName();
+    QString path = settings->value(application_name).toString();
+
+    if(isstart)
+    {
+        QString appPath = "\"" + QApplication::applicationFilePath() + "\"";
+        QString newPath = QDir::toNativeSeparators(appPath);
+        if (path != newPath)
+        {
+            settings->setValue(application_name, newPath);
+        }
+    }
+    else settings->remove(application_name);
+
+    // Thanks to https://blog.csdn.net/thequitesunshine007/article/details/119605740
+}
+
+bool Utils::isAutoRunSelf()
+{
+    QSettings *settings = new QSettings(AUTO_RUN, QSettings::NativeFormat);
+
+    QString application_name = QApplication::applicationName();
+    QString path = settings->value(application_name).toString();
+
+    QString appPath = "\"" + QApplication::applicationFilePath() + "\"";
+    QString newPath = QDir::toNativeSeparators(appPath);
+    return path == newPath;
+}
