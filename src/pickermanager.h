@@ -10,6 +10,7 @@
 class ShortcutEventFilter;
 class ScreenCover;
 class TrayIcon;
+class ShortcutWidget;
 class PickerManager : public QObject
 {
     Q_OBJECT
@@ -35,6 +36,10 @@ public:
      * @param pScreen 获取截屏的颜色
      */
     QPixmap getScreenShotPixmap(QScreen *pScreen);
+    /**
+     * @brief showShortcutWidget 显示修改快捷键对话框
+     */
+    void showShortcutWidget();
 protected:
     /**
      * @brief pickerFinished 左键点击后的颜色
@@ -72,6 +77,7 @@ private:
     QMenu *m_menu;
 
     TrayIcon *m_tray;
+    ShortcutWidget *m_shortcutWidget;
 
     ShortcutEventFilter* m_filter;
 };

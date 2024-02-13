@@ -4,6 +4,7 @@ set(SOURCES
         pickermanager.h pickermanager.cpp
         utils.cpp utils.h
         trayicon.h trayicon.cpp
+        shortcutwidget.h shortcutwidget.cpp
         ../images/images.qrc
 )
 if (WIN32)

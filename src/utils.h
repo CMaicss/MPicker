@@ -20,6 +20,7 @@ public:
     static QString colorToFloatRGBA(QColor color);
     static QString colorToTColor(QColor color);
     static void setProcessAutoRunSelf(bool isstart);
+    static QString getKeyName(Qt::Key key);
     static bool isAutoRunSelf();
     static int round(double n);
 };

@@ -8,7 +8,7 @@
 #include <QWidget>
 #include <QtMath>
 #include <QSettings>
-
+static QMap<Qt::Key, QString> keyMap;
 QString Utils::colorToHex(QColor color)
 {
     return color.name().toUpper();
@@ -69,6 +69,72 @@ void Utils::setProcessAutoRunSelf(bool isstart)
     else settings->remove(application_name);
 
     // Thanks to https://blog.csdn.net/thequitesunshine007/article/details/119605740
+}
+
+QString Utils::getKeyName(Qt::Key key)
+{
+    if(keyMap.size() == 0) {
+        keyMap.insert(Qt::Key_Control, "Ctrl");
+        keyMap.insert(Qt::Key_Alt, "Alt");
+        keyMap.insert(Qt::Key_Meta, "Super");
+        keyMap.insert(Qt::Key_Up, "↑");
+        keyMap.insert(Qt::Key_Down, "↓");
+        keyMap.insert(Qt::Key_Left, "←");
+        keyMap.insert(Qt::Key_Right, "→");
+        keyMap.insert(Qt::Key_Shift, "Shift");
+        keyMap.insert(Qt::Key_Enter, "↵");
+        keyMap.insert(Qt::Key_Space, "␣");
+        keyMap.insert(Qt::Key_1, "1");
+        keyMap.insert(Qt::Key_2, "2");
+        keyMap.insert(Qt::Key_3, "3");
+        keyMap.insert(Qt::Key_4, "4");
+        keyMap.insert(Qt::Key_5, "5");
+        keyMap.insert(Qt::Key_6, "6");
+        keyMap.insert(Qt::Key_7, "7");
+        keyMap.insert(Qt::Key_8, "8");
+        keyMap.insert(Qt::Key_9, "9");
+        keyMap.insert(Qt::Key_0, "0");
+        keyMap.insert(Qt::Key_A, "A");
+        keyMap.insert(Qt::Key_B, "B");
+        keyMap.insert(Qt::Key_C, "C");
+        keyMap.insert(Qt::Key_D, "D");
+        keyMap.insert(Qt::Key_E, "E");
+        keyMap.insert(Qt::Key_F, "F");
+        keyMap.insert(Qt::Key_G, "G");
+        keyMap.insert(Qt::Key_H, "H");
+        keyMap.insert(Qt::Key_I, "I");
+        keyMap.insert(Qt::Key_J, "J");
+        keyMap.insert(Qt::Key_K, "K");
+        keyMap.insert(Qt::Key_L, "L");
+        keyMap.insert(Qt::Key_M, "M");
+        keyMap.insert(Qt::Key_N, "N");
+        keyMap.insert(Qt::Key_O, "O");
+        keyMap.insert(Qt::Key_P, "P");
+        keyMap.insert(Qt::Key_Q, "Q");
+        keyMap.insert(Qt::Key_R, "R");
+        keyMap.insert(Qt::Key_S, "S");
+        keyMap.insert(Qt::Key_T, "T");
+        keyMap.insert(Qt::Key_U, "U");
+        keyMap.insert(Qt::Key_V, "V");
+        keyMap.insert(Qt::Key_W, "W");
+        keyMap.insert(Qt::Key_X, "X");
+        keyMap.insert(Qt::Key_Y, "Y");
+        keyMap.insert(Qt::Key_Z, "Z");
+        keyMap.insert(Qt::Key_Escape, "Esc");
+        keyMap.insert(Qt::Key_Tab, "Tab");
+        keyMap.insert(Qt::Key_Backspace, "Back");
+        keyMap.insert(Qt::Key_Delete, "Del");
+        keyMap.insert(Qt::Key_Comma, ",");
+        keyMap.insert(Qt::Key_Period, ".");
+        keyMap.insert(Qt::Key_Slash, "/");
+        keyMap.insert(Qt::Key_Semicolon, ";");
+        keyMap.insert(Qt::Key_Equal, "=");
+        keyMap.insert(Qt::Key_Apostrophe, "'");
+        keyMap.insert(Qt::Key_Minus, "-");
+        keyMap.insert(Qt::Key_BracketLeft, "[");
+        keyMap.insert(Qt::Key_BracketRight, "]");
+    }
+    return keyMap.value(key);
 }
 
 bool Utils::isAutoRunSelf()

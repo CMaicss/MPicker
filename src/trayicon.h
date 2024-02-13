@@ -36,12 +36,17 @@ private slots:
      * @param autoRun 是否自动启动
      */
     void slotActionAutoRun(bool autoRun);
+    /**
+     * @brief slotActionShortcut 显示快捷键修改对话框
+     */
+    void slotActionShortcut();
 private:
     QSystemTrayIcon* m_tray;
     QMenu* m_menu;
     QAction* m_action_exit;
     QAction* m_action_start;
     QAction* m_action_autoRun;
+    QAction* m_action_shortcut;
 };
 
 #endif // TRAYICON_H

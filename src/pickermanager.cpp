@@ -10,6 +10,7 @@
 #include <iostream>
 #include "utils.h"
 #include "trayicon.h"
+#include "shortcutwidget.h"
 PickerManager* PickerManager::_ins = nullptr;
 PickerManager *PickerManager::instance()
 {
@@ -49,6 +50,11 @@ QPixmap PickerManager::getScreenShotPixmap(QScreen *pScreen)
     QPixmap result;
     result = pScreen->grabWindow(0);
     return result;
+}
+
+void PickerManager::showShortcutWidget()
+{
+    m_shortcutWidget->exec();
 }
 
 void PickerManager::pickerFinished(const QColor &color)
@@ -131,6 +137,8 @@ PickerManager::PickerManager(QObject *parent)
 
     m_filter = new ShortcutEventFilter(MOD_ALT,'P');
     qApp->installNativeEventFilter(m_filter);
+
+    m_shortcutWidget = new ShortcutWidget;
 }
 
 void PickerManager::close()
