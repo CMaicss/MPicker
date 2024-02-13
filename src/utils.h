@@ -21,4 +21,5 @@ public:
     static QString colorToTColor(QColor color);
     static void setProcessAutoRunSelf(bool isstart);
     static bool isAutoRunSelf();
+    static int round(double n);
 };

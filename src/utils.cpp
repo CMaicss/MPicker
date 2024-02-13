@@ -82,3 +82,11 @@ bool Utils::isAutoRunSelf()
     QString newPath = QDir::toNativeSeparators(appPath);
     return path == newPath;
 }
+
+int Utils::round(double n)
+{
+    if (n > 0)
+        return n - int(n) >= 0.5 ? int(n)+1 : int(n);
+    else
+        return -n - int(-n) >= 0.5 ? -(int(-n) + 1) : -int(-n);
+}
