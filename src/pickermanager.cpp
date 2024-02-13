@@ -6,6 +6,8 @@
 #include <QStyle>
 #include <QMenu>
 #include <QClipboard>
+#include <windows.h>
+#include <iostream>
 #include "utils.h"
 #include "trayicon.h"
 PickerManager* PickerManager::_ins = nullptr;
@@ -126,6 +128,9 @@ PickerManager::PickerManager(QObject *parent)
     connect(m_action_TColor, &QAction::triggered, this, &PickerManager::slotFormatClicked);
 
     m_format = ColorFormat::Hex;
+
+    m_filter = new ShortcutEventFilter(MOD_ALT,'P');
+    qApp->installNativeEventFilter(m_filter);
 }
 
 void PickerManager::close()
@@ -161,3 +166,34 @@ void PickerManager::slotFormatClicked()
 }
 
 
+
+ShortcutEventFilter::ShortcutEventFilter(const unsigned int& mod, const unsigned int& key)
+{
+    registerShortcut(mod, key);
+}
+
+void ShortcutEventFilter::registerShortcut(const unsigned int &mod, const unsigned int &key)
+{
+    int id = m_key ^ m_mod;
+    UnregisterHotKey(0, id);
+    m_mod = mod;
+    m_key = key;
+
+    id = key ^ mod;
+    BOOL ok = RegisterHotKey(0, id, mod, key);
+    if (!ok)
+        std::cerr << "register shortcut failed!" << std::endl;
+}
+
+bool ShortcutEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
+{
+    MSG* msg = static_cast<MSG*>(message);
+    if (msg->message == WM_HOTKEY)
+    {
+        const quint32 keycode = HIWORD(msg->lParam);
+        const quint32 modifiers = LOWORD(msg->lParam);
+        if (keycode == m_key && m_mod == modifiers)
+            MANAGER->start();
+    }
+    return false;
+}

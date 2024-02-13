@@ -4,9 +4,10 @@
 #include <QAction>
 #include <QObject>
 #include <QScreen>
+#include <QAbstractNativeEventFilter>
 #define MANAGER PickerManager::instance()
 
-
+class ShortcutEventFilter;
 class ScreenCover;
 class TrayIcon;
 class PickerManager : public QObject
@@ -34,7 +35,6 @@ public:
      * @param pScreen 获取截屏的颜色
      */
     QPixmap getScreenShotPixmap(QScreen *pScreen);
-
 protected:
     /**
      * @brief pickerFinished 左键点击后的颜色
@@ -72,6 +72,19 @@ private:
     QMenu *m_menu;
 
     TrayIcon *m_tray;
+
+    ShortcutEventFilter* m_filter;
+};
+
+class ShortcutEventFilter : public QAbstractNativeEventFilter {
+public:
+    ShortcutEventFilter(const unsigned int& mod, const unsigned int& key);
+
+    void registerShortcut(const unsigned int& mod, const unsigned int& key);
+public:
+    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result);
+private:
+    unsigned int m_mod, m_key;
 };
 
 #endif // PICKERMANAGER_H
