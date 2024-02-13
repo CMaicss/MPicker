@@ -21,6 +21,6 @@ MPicker是参考[deepin-picker](https://github.com/linuxdeepin/deepin-picker)的
 |多种颜色读取格式，便于在不同场景下使用|✅|
 |点击托盘图标快速拾色|✅|
 |可配置开机自启动|✅|
+|滚轮缩放拾色器|✅|
 |可配置快速拾色快捷键|🔧|
-|滚轮缩放拾色器|🔧|
 |支持国际化翻译|🔧|
