@@ -40,6 +40,12 @@ public:
      * @brief showShortcutWidget 显示修改快捷键对话框
      */
     void showShortcutWidget();
+    /**
+     * @brief registerShortcut 修改快捷键
+     * @param mod
+     * @param key
+     */
+    void registerShortcut(const unsigned int& mod, const unsigned int& key);
 protected:
     /**
      * @brief pickerFinished 左键点击后的颜色
@@ -85,7 +91,7 @@ private:
 class ShortcutEventFilter : public QAbstractNativeEventFilter {
 public:
     ShortcutEventFilter(const unsigned int& mod, const unsigned int& key);
-
+    ~ShortcutEventFilter();
     void registerShortcut(const unsigned int& mod, const unsigned int& key);
 public:
     bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result);

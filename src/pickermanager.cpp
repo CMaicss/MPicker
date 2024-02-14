@@ -57,6 +57,16 @@ void PickerManager::showShortcutWidget()
     m_shortcutWidget->exec();
 }
 
+void PickerManager::registerShortcut(const unsigned int &mod, const unsigned int &key)
+{
+    // 清除原有快捷键
+    qApp->removeNativeEventFilter(m_filter);
+    m_filter = new ShortcutEventFilter(mod, key);
+    qApp->installNativeEventFilter(m_filter);
+    Utils::setConfig("Modifiers", mod);
+    Utils::setConfig("Key", key);
+}
+
 void PickerManager::pickerFinished(const QColor &color)
 {
     QClipboard *clipboard = QApplication::clipboard(); //获取系统剪贴板指针
@@ -135,8 +145,14 @@ PickerManager::PickerManager(QObject *parent)
 
     m_format = ColorFormat::Hex;
 
-    m_filter = new ShortcutEventFilter(MOD_ALT,'P');
-    qApp->installNativeEventFilter(m_filter);
+    auto vmod = Utils::getConfig("Modifiers");
+    auto vkey = Utils::getConfig("Key");
+
+    if (vmod.isValid() && vkey.isValid()) {
+        registerShortcut(vmod.toUInt(),vkey.toUInt());
+    }else {
+        registerShortcut(MOD_ALT,'P');
+    }
 
     m_shortcutWidget = new ShortcutWidget;
 }
@@ -178,6 +194,12 @@ void PickerManager::slotFormatClicked()
 ShortcutEventFilter::ShortcutEventFilter(const unsigned int& mod, const unsigned int& key)
 {
     registerShortcut(mod, key);
+}
+
+ShortcutEventFilter::~ShortcutEventFilter()
+{
+    int id = m_key ^ m_mod;
+    UnregisterHotKey(0, id);
 }
 
 void ShortcutEventFilter::registerShortcut(const unsigned int &mod, const unsigned int &key)

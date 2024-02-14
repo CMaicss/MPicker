@@ -22,5 +22,5 @@ MPicker是参考[deepin-picker](https://github.com/linuxdeepin/deepin-picker)的
 |点击托盘图标快速拾色|✅|
 |可配置开机自启动|✅|
 |滚轮缩放拾色器|✅|
-|可配置快速拾色快捷键|🔧|
+|可配置快速拾色快捷键|✅|
 |支持国际化翻译|🔧|

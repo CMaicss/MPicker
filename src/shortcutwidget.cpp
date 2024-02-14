@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QHBoxLayout>
 #include "utils.h"
+#include "pickermanager.h"
 #define PADDING 40
 ShortcutWidget::ShortcutWidget(QWidget *parent)
     : QDialog{parent}
@@ -32,6 +33,8 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 
     connect(m_btnOK, &QPushButton::clicked, this, &ShortcutWidget::slotOK);
     connect(m_btnCancel, &QPushButton::clicked, this, &ShortcutWidget::slotClose);
+
+    m_btnOK->setEnabled(false);
 }
 
 void ShortcutWidget::showKeys()
@@ -41,7 +44,6 @@ void ShortcutWidget::showKeys()
         QString keyName = Utils::getKeyName(Qt::Key(key));
         m_keyNames.append(keyName);
     }
-    qDebug()<<m_keyNames;
     repaint();
 }
 
@@ -101,10 +103,11 @@ void ShortcutWidget::paintEvent(QPaintEvent *event)
 void ShortcutWidget::keyPressEvent(QKeyEvent *event)
 {
     int key = event->key();
-
+    // 如果按键不在支持范围内则忽略
     if (Utils::getKeyName(Qt::Key(key)) == "") {
         return;
     }
+
     // 如果所有按键是放开状态按下任意按键先清空预选列表A
     if (m_currentKeyList.size() == 0) {
         m_keyList.clear();
@@ -124,8 +127,15 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *event)
             }
         }
     }
+    // 如果当前组合键个数大于等于3则清空
+    if (m_keyList.size() >= 3) {
+        m_keyList.clear();
+    }
+
     m_keyList.append(key);
     m_currentKeyList.append(key);
+    m_key = Qt::Key(key);
+    m_modifiers = event->modifiers();
     showKeys();
 }
 
@@ -144,16 +154,24 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *event)
     } else if (beforSize == cpKeyList.size()) {
         m_keyList.clear();
     }
-
     showKeys();
+
+    m_btnOK->setEnabled(!m_keyList.isEmpty());
+    if (m_btnOK->isEnabled()) {
+        m_btnOK->setFocus();
+    }
 }
 
 void ShortcutWidget::slotOK()
 {
-
+    MANAGER->registerShortcut(Utils::nativeModifiers(m_modifiers), Utils::nativeKeycode(m_key));
+    slotClose();
+    m_btnOK->setEnabled(false);
 }
 
 void ShortcutWidget::slotClose()
 {
+    m_keyList.clear();
+    showKeys();
     close();
 }

@@ -27,6 +27,8 @@ private:
     QVector<int> m_keyList;
     QVector<int> m_currentKeyList;
     QVector<QString> m_keyNames;
+    Qt::KeyboardModifiers m_modifiers;
+    Qt::Key m_key;
 };
 
 #endif // SHORTCUTWIDGET_H

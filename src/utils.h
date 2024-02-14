@@ -23,4 +23,8 @@ public:
     static QString getKeyName(Qt::Key key);
     static bool isAutoRunSelf();
     static int round(double n);
+    static unsigned int nativeModifiers(Qt::KeyboardModifiers modifiers);
+    static unsigned int nativeKeycode(Qt::Key key);
+    static QVariant getConfig(QString name);
+    static void setConfig(QString name, QVariant value);
 };
