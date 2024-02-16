@@ -1,0 +1,39 @@
+.main-title {
+    text-align: center;
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.discription {
+    text-align: center;
+    font-weight: 400;
+    color: #555;
+}
+.logo {
+    margin-top: 140px;
+    height: 128px;
+    text-align: center;
+}
+.logo img {
+    width: 128px;
+    height: 128px;
+}
+.download {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.download button {
+    padding: 10px 20px;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    background-color: #266EFB;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.download button:hover {
+    background-color: #266dfbc4;
+    transition: all 0.3s;
+}
