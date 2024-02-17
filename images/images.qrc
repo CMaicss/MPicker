@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>logo.svg</file>
         <file>enter-keyboard-shortcut.svg</file>
+        <file>help.jpg</file>
     </qresource>
 </RCC>

@@ -9,7 +9,8 @@ set(SOURCES
 )
 if (WIN32)
     set(CMAKE_CXX_FLAGS "-mwindows")
-    add_executable(MPicker ${SOURCES} ../icon.rc)
+    add_executable(MPicker ${SOURCES} ../icon.rc
+        welcomewidget.h welcomewidget.cpp)
 else()
     add_executable(MPicker ${SOURCES})
 endif()
