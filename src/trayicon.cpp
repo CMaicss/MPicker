@@ -12,10 +12,10 @@ TrayIcon::TrayIcon()
     m_tray->show();
 
     m_menu = new QMenu;
-    m_action_start = new QAction(tr("Pick"));
-    m_action_exit = new QAction(tr("Exit"));
-    m_action_autoRun = new QAction(tr("Run with system"));
-    m_action_shortcut = new QAction(tr("Shortcut"));
+    m_action_start = new QAction(tr("取色"));
+    m_action_exit = new QAction(tr("退出"));
+    m_action_autoRun = new QAction(tr("开启自启动"));
+    m_action_shortcut = new QAction(tr("快捷键"));
     m_action_autoRun->setCheckable(true);
     connect(m_action_start, &QAction::triggered, this, &TrayIcon::slotActionStart);
     connect(m_action_exit, &QAction::triggered, this, &TrayIcon::slotActionExit);
