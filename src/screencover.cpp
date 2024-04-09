@@ -57,10 +57,9 @@ void ScreenCover::updateView()
     sampleSize = sampleSize / dotsPerInch;
     do {
         sampleSize++;
-        m_pix = QApplication::primaryScreen()->grabWindow(0,
-                                                      point.x() - (sampleSize - 1) / 2,
-                                                      point.y() - (sampleSize - 1) / 2,
-                                                      sampleSize, sampleSize);
+        m_pix = this->grab(QRect(point.x() - (sampleSize - 1) / 2,
+                                 point.y() - (sampleSize - 1) / 2,
+                                 sampleSize, sampleSize));
     } while (m_pix.width() % 2 == 0);
     QPixmap cursor_pixmap(m_viewSize, m_viewSize);
     cursor_pixmap.fill(QColor(0, 0, 0, 0));
