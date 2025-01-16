@@ -6,6 +6,7 @@
 #include <QStyle>
 #include <QMenu>
 #include <QClipboard>
+#include <QDebug>
 #include <windows.h>
 #include <iostream>
 #include "utils.h"
@@ -215,7 +216,11 @@ void ShortcutEventFilter::registerShortcut(const unsigned int &mod, const unsign
         std::cerr << "register shortcut failed!" << std::endl;
 }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
 bool ShortcutEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
+#elif (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
+bool ShortcutEventFilter::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
+#endif
 {
     MSG* msg = static_cast<MSG*>(message);
     if (msg->message == WM_HOTKEY)

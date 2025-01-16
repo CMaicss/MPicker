@@ -7,7 +7,9 @@
 #include <QPainterPath>
 #include <QRadialGradient>
 #ifdef __WIN32__
+#define WINVER 0x0A00
 #include <Windows.h>
+#include <Winuser.h>
 #endif
 ScreenCover::ScreenCover(QWidget *parent)
     : QWidget{parent}
@@ -22,6 +24,7 @@ ScreenCover::ScreenCover(QWidget *parent)
     // 设置窗口背景透明
     setAttribute(Qt::WA_TranslucentBackground, true);
     setMouseTracking(true);
+
 
     m_viewScale = 10;
     m_viewSize = 200;

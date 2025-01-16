@@ -94,7 +94,11 @@ public:
     ~ShortcutEventFilter();
     void registerShortcut(const unsigned int& mod, const unsigned int& key);
 public:
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
     bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result);
+#elif (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
+    bool nativeEventFilter(const QByteArray &eventType, void *message, long *result);
+#endif
 private:
     unsigned int m_mod, m_key;
 };
